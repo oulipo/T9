@@ -4,27 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>T9</title>
+    <style>
+        .touche {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
     <input type="text" id="q"><br>
+    <div class="touche"><strong>1</strong></div><div class="touche active" data-val="2"><strong>2</strong>
+    <small>(ABC)</small></div><div class="touche active" data-val="3"><strong>3</strong>
+    <small>(DEF)</small></div><br>
+    <div class="touche active" data-val="4"><strong>4</strong>
+    <small>(GHI)</small></div><div class="touche active" data-val="5"><strong>5</strong>
+    <small>(JKL)</small></div><div class="touche active" data-val="6"><strong>6</strong>
+    <small>(MNO)</small></div><br>
+    <div class="touche active" data-val="7"><strong>7</strong>
+    <small>(PQRS)</small></div><div class="touche active" data-val="8"><strong>8</strong>
+    <small>(TUV)</small></div><div class="touche active" data-val="9"><strong>9</strong>
+    <small>(WXYZ)</small></div><br>
+    <button id="reset">RESET</button>
     <ul id="mots">
 
     </ul>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script>
 
-        $("#q").on("change", function() {
-            q = $(this).val();
-            $.get("traitement.php?q="+q, function(data) {
+        $(".active").on("click", function() {
+            valeur = $(this).data("val");
+            q = $("#q").val();
+            $("#q").val(q + valeur);
+            q2 = $("#q").val();
+            $.get("traitement.php?q=" + q2, function (data) {
                 $("#mots").empty();
                 json = JSON.parse(data);
                 json.forEach(element => {
                     console.log(element);
-                    $("#mots").append("<li>"+element+"</li>");
+                    $("#mots").append("<li>" + element + "</li>");
                 });
             })
         })
+
+        $("#reset").on("click", function() {
+            $("#q").val('');
+            $("#mots").empty();
+        })
+
+        // $("#q").on("change paste keyup", function() {
+        //     q = $(this).val();
+        //     $.get("traitement.php?q="+q, function(data) {
+        //         $("#mots").empty();
+        //         json = JSON.parse(data);
+        //         json.forEach(element => {
+        //             console.log(element);
+        //             $("#mots").append("<li>"+element+"</li>");
+        //         });
+        //     })
+        // })
     </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
-
-require_once("dico.php");
+error_reporting(E_ALL);
+ini_set('memory_limit', '4096M');
+require_once("dico_t9.php");
 
 $q = $_GET["q"] ?? "";
 
@@ -52,21 +53,21 @@ function transforme($mot) {
     return $resultat;
 }
 
-function init_t9($dico) {
-    $dico_t9 = [];
-    foreach ($dico as $mot) {
-        $index = transforme($mot);
-        if(isset($dico_t9[$index])) {
-            $dico_t9[$index][] = $mot;
-        } else {
-            $dico_t9[$index] = [$mot];
-        }
-    }
-    return $dico_t9;
-}
+// function init_t9($dico) {
+//     $dico_t9 = [];
+//     foreach ($dico as $mot) {
+//         $index = transforme($mot);
+//         if(isset($dico_t9[$index])) {
+//             $dico_t9[$index][] = $mot;
+//         } else {
+//             $dico_t9[$index] = [$mot];
+//         }
+//     }
+//     return $dico_t9;
+// }
 
-$d = init_t9($dico);
-$resultat = $d[$q] ?? [];
+// $d = init_t9($dico);
+$resultat = $dico_t9[$q] ?? [];
 
 echo json_encode($resultat);
 ?>
