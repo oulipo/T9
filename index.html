@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="q"><br>
+    <ul id="mots">
+
+    </ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+
+        $("#q").on("change", function() {
+            q = $(this).val();
+            $.get("traitement.php?q="+q, function(data) {
+                $("#mots").empty();
+                json = JSON.parse(data);
+                json.forEach(element => {
+                    console.log(element);
+                    $("#mots").append("<li>"+element+"</li>");
+                });
+            })
+        })
+    </script>
+</body>
+</html>
